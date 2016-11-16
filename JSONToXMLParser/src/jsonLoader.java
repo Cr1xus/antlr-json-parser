@@ -12,11 +12,11 @@ public class jsonLoader extends jsonBaseListener {
     private ArrayList<jsonObject> objects;
     private ArrayList<jsonObject> children;
 
-
     private jsonObject rootObject = new jsonObject();
     private jsonObject currentObj;
     private int enterObjectCounter = 0;
     private boolean isArrayEntered = false;
+    private int enterArrayCounter = 0;
 
     public jsonObject getRootObject(){
         return rootObject;
@@ -75,8 +75,8 @@ public class jsonLoader extends jsonBaseListener {
             tmpObj.parentObject = currentObj;
             currentObj.children = new ArrayList<>();
             currentObj.children.add(tmpObj);
+            currentObj.key = k;
         }
-        currentObj.key = k;
         jsonKeyValue kvPair =  null;
         if(ctx.value().NUMBER() != null){
             kvPair =  new jsonKeyValue(k, ctx.value().NUMBER().getText(), Number.class);
@@ -93,17 +93,20 @@ public class jsonLoader extends jsonBaseListener {
     public void enterArray(jsonParser.ArrayContext ctx) {
         super.enterArray(ctx);
         isArrayEntered = true;
-
+        enterArrayCounter++;
     }
 
 
     @Override
     public void exitArray(jsonParser.ArrayContext ctx) {
         super.exitArray(ctx);
-        isArrayEntered = false;
+        enterArrayCounter--;
         enterObjectCounter--;
         currentObj = this.retrieveObjectWithLevel(enterObjectCounter);
+        if(enterArrayCounter == 0){
+            isArrayEntered = false;
+        }else{
+            enterObjectCounter++;
+        }
     }
-
-
 }

@@ -5,6 +5,11 @@ import java.util.Map;
 /**
  * Created by Cr1xus on 11/11/16.
  */
+
+
+/**
+ * @brief Represents json object
+ */
 public class jsonObject {
     public jsonObject parentObject;
     public String key;

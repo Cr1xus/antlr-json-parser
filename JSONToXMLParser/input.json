@@ -1,7 +1,7 @@
 {
   "books" :[
     {
-      "author": "Terence Parr",
+      "author": "TestAuthor",
       "title": "The Definitive ANTLR 4 Reference",
       "year": 2013,
       "isbn": "1934356999"
@@ -30,10 +30,5 @@
       "year": 2006,
       "isbn": "0061120081"
     }
-  ],
-
-  "books2" :"gfgf"
-
-
-
+  ]
 }
